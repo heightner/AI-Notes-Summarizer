@@ -7,6 +7,7 @@ import morgan from "morgan";
 import summaryRouter from "./routes/Summary.js";
 
 import { config } from "./config/config.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express()
 app.use(express.json())
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use(helmet())
 app.use(morgan("dev"))
+app.use(errorHandler)
 
 app.use("/api", summaryRouter)
 
