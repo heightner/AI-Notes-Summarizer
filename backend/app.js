@@ -23,6 +23,15 @@ app.use(errorHandler)
 
 app.use("/api", summaryRouter)
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        uptime: process.uptime(),
+        timestamp: Date.now(),
+    });
+});
+
+
 app.listen(config.PORT, () => {
     console.log(`Server is running on port ${config.PORT}`)
 })
