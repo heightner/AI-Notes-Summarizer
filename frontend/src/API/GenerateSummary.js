@@ -6,7 +6,6 @@ export const generateSummary = async(Text, length) => {
         text: Text,
         length: length
       }) 
-      console.log("Summary API: ", response.data)
       return response.data.summary
     } catch (error) {
         console.error("Error Generating SUmmary: ", error.message);
