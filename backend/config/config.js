@@ -6,5 +6,6 @@ export const config = {
     RATE_LIMIT_windowMs: 15 * 60 * 1000,
     RATE_LIMIT_max: 100,
     RATE_LIMIT_message: "Too many requests, please try again later.",
-    API_KEY: process.env.API_KEY 
+    API_KEY: process.env.API_KEY,
+    allowedOrigins: process.env.ALLOWED_ORIGINS?.split(',') || []
 }
