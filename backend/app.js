@@ -13,13 +13,20 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+const allowedOrigins = [
+    'https://ai-notes-summarizer-gray.vercel.app/',
+]
+
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: allowedOrigins,
+    methods: ['GET', 'POST']
 }))
 
 app.use(helmet())
 app.use(morgan("dev"))
 app.use(errorHandler)
+
+app.set('trust proxy', 1);
 
 app.use("/api", summaryRouter)
 
@@ -31,6 +38,10 @@ app.get('/health', (req, res) => {
     });
 });
 
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+});
 
 app.listen(config.PORT, () => {
     console.log(`Server is running on port ${config.PORT}`)
